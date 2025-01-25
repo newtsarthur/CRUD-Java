@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class model {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
