@@ -31,6 +31,11 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll();
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid Usuario usuario) {
         Usuario usuarioCriado = service.salvar(usuario);
