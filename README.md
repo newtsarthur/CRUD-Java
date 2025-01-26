@@ -199,5 +199,3 @@ mvn test
 Distribuído sob a licença MIT. Veja a licença para mais informações.
 
 ---
-
-Esse é um **README** básico para o seu projeto. Você pode personalizá-lo conforme necessário para refletir mais detalhes sobre sua aplicação.
