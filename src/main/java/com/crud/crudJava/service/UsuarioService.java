@@ -30,4 +30,10 @@ public class UsuarioService {
     public void deletar(Long id) {
         repository.deleteById(id);
     }
+
+    public boolean validateUser(String email, String senha) {
+        Optional<Usuario> usuario = repository.findByEmail(email); // Certifique-se de ter esse método no repositório
+
+        return usuario.isPresent() && usuario.get().getSenha().equals(senha);
+    }
 }
