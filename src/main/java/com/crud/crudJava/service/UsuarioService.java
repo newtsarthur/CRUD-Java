@@ -31,9 +31,9 @@ public class UsuarioService {
         repository.deleteById(id);
     }
 
-    public boolean validateUser(String nome, String password) {
-        Optional<Usuario> usuario = repository.findByUsername(nome); // Certifique-se de ter esse método no repositório
+    public boolean validateUser(String nome, String senha) {
+        Optional<Usuario> usuario = repository.findByNome(nome); // Certifique-se de ter esse método no repositório
 
-        return usuario.isPresent() && usuario.get().getSenha().equals(password);
+        return usuario.isPresent() && usuario.get().getSenha().equals(senha);
     }
 }
