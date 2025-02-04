@@ -5,6 +5,8 @@ import com.crud.crudJava.repository.UsuarioRepository;
 import com.crud.crudJava.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,11 +38,22 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
+//    @PostMapping
+//    public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid Usuario usuario) {
+//        Usuario usuarioCriado = service.salvar(usuario);
+//        return ResponseEntity.status(201).body(usuarioCriado);
+//
+//    }
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid Usuario usuario) {
-        Usuario usuarioCriado = service.salvar(usuario);
-        return ResponseEntity.status(201).body(usuarioCriado);
-
+    public ResponseEntity<?> criarUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario novoUsuario = service.salvar(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar usuário.");
+        }
     }
 
     @DeleteMapping("/{id}")
