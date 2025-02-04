@@ -20,6 +20,11 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario) {
+        Optional<Usuario> usuarioExistente = repository.findByEmail(usuario.getEmail());
+        if(usuarioExistente.isPresent()) {
+            throw new DataIntegrityViolationException("Já existe uma conta com esse email.");
+        }
+
         return repository.save(usuario);
     }
 
